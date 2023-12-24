@@ -20,7 +20,7 @@ function createWindow() {
   //quita menú por defecto de chromium
   win.setMenu(null)
   //para mostrar en la ventana la herramientas de desarrollo de chrome:
-  //win.webContents.openDevTools()
+  win.webContents.openDevTools()
 
 }
 
