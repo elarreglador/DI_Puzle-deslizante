@@ -1,0 +1,15 @@
+{
+  "name": "puzzle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Boris",
+  "license": "ISC",
+  "devDependencies": {
+    "@electron/remote": "^2.0.8",
+    "electron": "^21.4.4"
+  }
+}
