@@ -48,20 +48,53 @@ function sacudeTablero() {
 //mueve la pieza hacia el espacio en blanco
 function intercambia(id) {
   if ((id == vacio - 1) || (id == vacio + 1) || (id == vacio - 4) || (id == vacio + 4)) {
-    imagen[vacio].src = imagen[id].src;
-    imagen[id].src = rutaVacio;
+    if (!intercambiaMalElBorde(id, vacio)) { //y si no estamos en los bordes conflictivos
 
-    //ver verificacion de victoria esVictoria()
-    orden[vacio] = orden[id];
-    orden[id] = 0;
+      imagen[vacio].src = imagen[id].src;
+      imagen[id].src = rutaVacio;
 
-    vacio = id; //actualiza posicion de la celda vacia
-    movimientos++;
-    if ((esVictoria())&&(sacudiendo==false)){
-      alert("¡Enhorabuena! Has completado el puzle en " + movimientos + " movimientos.");
-      sacudeTablero();
-    };
+      vacio = id; //actualiza posicion de la celda vacia
+      movimientos++;
+    }
   }
+  //ver verificacion de victoria esVictoria()
+  orden[vacio] = orden[id];
+  orden[id] = 0;
+
+
+  if ((esVictoria()) && (sacudiendo == false)) {
+    alert("¡Enhorabuena! Has completado el puzle en " + movimientos + " movimientos.");
+    sacudeTablero();
+  };
+}
+
+function intercambiaMalElBorde(id, vacio) {
+  //informa si se va a mover el hueco de las posiciones conflictivas.
+  //esto sucede cuando intentamos mover una pieza desde la ultima 
+  //posicion del lateral derecho a la posicion primera de la siguiente linea.
+  retorno = false;
+  // 3 y 4 y viceversa
+  if ((vacio == 3) && (id == 4)) {
+    retorno = true;
+  }
+  if ((vacio == 4) && (id == 3)) {
+    retorno = true;
+  }
+  // 7 y 8 y viceversa
+  if ((vacio == 7) && (id == 8)) {
+    retorno = true;
+  }
+  if ((vacio == 8) && (id == 7)) {
+    retorno = true;
+  }
+  // 11 y 12 y viceversa
+  if ((vacio == 11) && (id == 12)) {
+    retorno = true;
+  }
+  if ((vacio == 12) && (id == 11)) {
+    retorno = true;
+  }
+  return retorno;
 }
 
 //devuelve true si el vector orden esta ordenado correctamente
@@ -70,7 +103,7 @@ function intercambia(id) {
 function esVictoria() {
   let victoria = true;
   for (let i = 0; i < 16; i++) {
-    if (orden[i] != i){
+    if (orden[i] != i) {
       victoria = false;
       return victoria
     }
